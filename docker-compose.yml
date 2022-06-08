@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  web:
+    container_name: golang_gin
+    build:
+      context: .
+      dockerfile: Dockerfile
+    tty: true
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./src/app:/src
+    depends_on:
+      - db
+    environment:
+      MYSQL_DATABASE: template_databese
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_HOST: mysql
+
+  db:
+    container_name: mysql
+    image: mysql:8.0
+    command: mysqld --innodb_use_native_aio=0
+    restart: always
+    platform: linux/x86_64
+    tty: true
+    ports:
+      - 3306:3306
+    volumes:
+      - ./src/db:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: template_databese
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password

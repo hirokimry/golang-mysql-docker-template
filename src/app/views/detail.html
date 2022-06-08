@@ -1,0 +1,29 @@
+<body>
+  <h2>{{.task.Name}}</h2>
+
+  <form method="post" action="/update/{{.task.ID}}">
+    <p>
+      内容<input type="text" name="name" size="30" value="{{.task.Name}}" />
+    </p>
+    <p>
+      状態
+      <select name="status">
+        {{if eq .task.Status "未実行"}}
+        <option value="未実行" selected>未実行</option>
+        <option value="実行中">実行中</option>
+        <option value="終了">終了</option>
+        {{else if eq .task.Status "実行中"}}
+        <option value="未実行">未実行</option>
+        <option value="実行中" selected>実行中</option>
+        <option value="終了">終了</option>
+        {{else}}
+        <option value="未実行">未実行</option>
+        <option value="実行中">実行中</option>
+        <option value="終了" selected>終了</option>
+        {{end}}
+      </select>
+    </p>
+    <p><input type="submit" value="Send" /></p>
+  </form>
+  <label><a href="/delete_check/{{.task.ID}}">削除</a></label>
+</body>

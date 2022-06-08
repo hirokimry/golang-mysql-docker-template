@@ -1,0 +1,12 @@
+<body>
+  <h2>Todo</h2>
+  <label><a href="/create">新規作成</a></label>
+  <ul>
+    {{ range .tasks }}
+    <li>
+      {{ .Name }} : {{ .Status }}
+      <a href="/detail/{{.ID}}">編集</a>
+    </li>
+    {{end}}
+  </ul>
+</body>
